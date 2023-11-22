@@ -38,9 +38,11 @@ class MyApp extends StatelessWidget {
       ),
       debugShowCheckedModeBanner: false,
       routes: {
-        MyHomePage.routeName: (context) => const MyHomePage(),
-        DetailScreen.routeName: (context) => const DetailScreen()
-      },
+  MyHomePage.routeName: (context) => MyHomePage(),
+  DetailScreen.routeName: (context) => DetailScreen(onClearData: () {  },
+    
+  ),
+},
     );
   }
 }

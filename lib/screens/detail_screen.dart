@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_demo_riverpod/provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
+import 'package:flutter_demo_riverpod/screens/main_screen.dart';
 class DetailScreen extends ConsumerStatefulWidget {
-  const DetailScreen({Key? key}) : super(key: key);
+  final VoidCallback onClearData;
+
+  const DetailScreen({Key? key, required this.onClearData}) : super(key: key);
 
   static String routeName = '/detail_screen';
 
@@ -28,27 +30,19 @@ class _DetailScreenState extends ConsumerState<DetailScreen> {
             const Text(
               'You have pushed the button in the previous screen this many times:',
             ),
-            Consumer(
-              builder: (context, watch, child) {
-                final counterProv = watch(counterProvider);
-
-                return Text(
-                  counterProv.getCounter().toString(),
-                  style: Theme.of(context).textTheme.headlineMedium,
-                );
-              },
+            Text(
+              counterProv.getCounter().toString(),
+              style: Theme.of(context).textTheme.headlineMedium,
             ),
             const SizedBox(height: 30),
             ElevatedButton(
               onPressed: () {
-                // Clear data in the main screen
-                context.read(counterProvider).resetCounter();
-
-                // Retrieve the main screen's provider and reset the counter
-                context.read(counterProvider).resetCounter();
-
-                // Navigate back to the main screen
-                Navigator.pop(context);
+                // Reset the counter in the main screen
+                widget.onClearData();
+                // Reset the counter in this screen
+                setState(() {
+                  counterProv.resetCounter();
+                });
               },
               child: const Text('Clear Data'),
             ),

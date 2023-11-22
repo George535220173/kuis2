@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_demo_riverpod/screens/detail_screen.dart';
 import 'package:flutter_demo_riverpod/provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 class MyHomePage extends ConsumerStatefulWidget {
-  const MyHomePage({super.key});
+  const MyHomePage({Key? key}) : super(key: key);
 
   static String routeName = '/';
 
@@ -13,6 +12,12 @@ class MyHomePage extends ConsumerStatefulWidget {
 }
 
 class _MyHomePageState extends ConsumerState<MyHomePage> {
+  void resetCounter() {
+    setState(() {
+      ref.read(counterProvider).resetCounter();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final counterProv = ref.watch(counterProvider);
@@ -24,7 +29,15 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.pushNamed(context, DetailScreen.routeName);
+              Navigator.pushNamed(
+                context,
+                DetailScreen.routeName,
+                // Use a Builder to access the context of the new route
+                // and pass the onClearData callback
+                arguments: Builder(
+                  builder: (context) => DetailScreen(onClearData: resetCounter),
+                ),
+              );
             },
             icon: const Icon(Icons.info_outline_rounded),
           )
