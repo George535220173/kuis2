@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_demo_riverpod/provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_demo_riverpod/screens/main_screen.dart';
-class DetailScreen extends ConsumerStatefulWidget {
-  final VoidCallback onClearData;
+import 'package:p14/provider.dart';
+import 'package:p14/screens/main_screen.dart';
 
-  const DetailScreen({Key? key, required this.onClearData}) : super(key: key);
+class DetailScreen extends ConsumerStatefulWidget {
+  const DetailScreen({super.key});
 
   static String routeName = '/detail_screen';
 
   @override
-  _DetailScreenState createState() => _DetailScreenState();
+  ConsumerState<DetailScreen> createState() => _DetailScreenState();
 }
 
 class _DetailScreenState extends ConsumerState<DetailScreen> {
@@ -20,6 +19,17 @@ class _DetailScreenState extends ConsumerState<DetailScreen> {
 
     return Scaffold(
       appBar: AppBar(
+        leading: GestureDetector(
+          onTap:() { Navigator.pushNamed(context, MyHomePage.routeName);
+          setState(() {
+            
+          });},
+          child: Icon(
+            Icons.arrow_back
+        
+            
+          ),
+        ),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: const Text('Detail'),
       ),
@@ -37,9 +47,6 @@ class _DetailScreenState extends ConsumerState<DetailScreen> {
             const SizedBox(height: 30),
             ElevatedButton(
               onPressed: () {
-                // Reset the counter in the main screen
-                widget.onClearData();
-                // Reset the counter in this screen
                 setState(() {
                   counterProv.resetCounter();
                 });
@@ -48,7 +55,7 @@ class _DetailScreenState extends ConsumerState<DetailScreen> {
             ),
           ],
         ),
-      ),
-    );
-  }
+      ),
+    );
+  }
 }

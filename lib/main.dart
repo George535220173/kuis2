@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_demo_riverpod/provider.dart';
 import 'package:flutter_demo_riverpod/screens/detail_screen.dart';
 import 'package:flutter_demo_riverpod/screens/main_screen.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -39,7 +40,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       routes: {
   MyHomePage.routeName: (context) => MyHomePage(),
-  DetailScreen.routeName: (context) => DetailScreen(onClearData: () {  },
+  DetailScreen.routeName: (context) => DetailScreen(onClearData: () { Counter().resetCounter(); },
     
   ),
 },
